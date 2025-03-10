@@ -11,13 +11,20 @@ def clone_or_pull_repo(repo_url, branch, local_dir):
         subprocess.run(["git", "-C", local_dir, "checkout", branch], check=True)
         subprocess.run(["git", "-C", local_dir, "pull", "origin", branch], check=True)
 
-def make_files_readonly(local_dir, exclude_ext):
+def set_permission_readonly(local_dir, exclude_ext):
     for root, _, files in os.walk(local_dir):
         for file in files:
             if not file.endswith(exclude_ext):
                 file_path = os.path.join(root, file)
                 os.chmod(file_path, 0o444)  # Read-only permission
                 print(f"Set {file_path} to read-only.")
+
+def set_permission_full(local_dir):
+    for root, _, files in os.walk(local_dir):
+        for file in files:
+            file_path = os.path.join(root, file)
+            os.chmod(file_path, 0o777)  # Full permission
+            print(f"Set {file_path} to read-only.")
 
 if __name__ == "__main__":
     repo_url = "https://github.com/SinkuKumar/CI-CD-Python.git"  # Updated repo URL
@@ -26,8 +33,9 @@ if __name__ == "__main__":
     exclude_ext = ".py"  # Change this to the extension you want to exclude
     
     try:
+        set_permission_full(local_dir)
         clone_or_pull_repo(repo_url, branch, local_dir)
         print("Repository is up to date.")
-        make_files_readonly(local_dir, exclude_ext)
+        set_permission_readonly(local_dir, exclude_ext)
     except subprocess.CalledProcessError as e:
         print(f"Error executing git command: {e}")
