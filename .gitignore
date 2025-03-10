@@ -1,5 +1,7 @@
 # user file
 webhook/blank_hook.json
+.DS_Store
+
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -173,3 +175,4 @@ cython_debug/
 # PyPI configuration file
 .pypirc
 
+.DS_Store

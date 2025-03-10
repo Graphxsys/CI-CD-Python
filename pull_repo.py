@@ -22,7 +22,7 @@ def make_files_readonly(local_dir, exclude_ext):
 if __name__ == "__main__":
     repo_url = "https://github.com/SinkuKumar/CI-CD-Python.git"  # Updated repo URL
     branch = "main"  # Change to the desired branch
-    local_dir = "./CI-CD-Python"  # Updated directory name
+    local_dir = "./test"  # Updated directory name
     exclude_ext = ".py"  # Change this to the extension you want to exclude
     
     try:
