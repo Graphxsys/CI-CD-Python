@@ -55,8 +55,8 @@ env:
   # SMTP Server Credentials
   SMTP_ADDRESS: "smtp.abc.com"
   SMTP_PORT: 587
-  SMTP_ACCOUNT: "email@"
-  SMTP_PASSWORD: "Graphx@(*&"
+  SMTP_ACCOUNT: "email@graphxsys.com"
+  SMTP_PASSWORD: "password"
 
   # SQL Server Credentials
   SQL_SERVER: "127.0.0.1"
