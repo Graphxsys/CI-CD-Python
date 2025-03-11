@@ -101,6 +101,10 @@ Date:   Tue Mar 11 14:32:25 2025 +0530
 
 To deploy a specific commit, update the `commit_hash` in `deployment.yaml` and redeploy the script. This ensures that your project rolls back to the desired checkpoint.
 
+## Note
+
+**Use commit hash only if you want to rollback to a specific checkpoint, else leave it empty.**
+
 ## Conclusion
 
 This CI/CD pipeline helps streamline Python script deployment while maintaining consistency across environments. Follow the best practices outlined in this document to ensure smooth development and deployment processes.
