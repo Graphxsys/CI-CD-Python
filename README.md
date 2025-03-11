@@ -47,7 +47,7 @@ Example `deployment.yaml` format:
 ```yaml
 repo_url: "https://github.com/SinkuKumar/CI-CD-Python.git"
 branch: "main"
-commit_hash: "72a3eb3f83fc6f148d343f869070f067c44b4d4e"
+commit_hash: ""
 local_dir: "./Users/Sinku/Desktop/Deployment"
 exclude_ext: ".ipynb"
 
