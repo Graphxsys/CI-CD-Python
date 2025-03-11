@@ -1,34 +1,33 @@
+"""
+MSSQL Database Utility
+
+This script provides a class for interacting with an MSSQL database. It includes
+methods to execute queries, retrieve column names, delete table data, and insert CSV data.
+
+Modules Used:
+- os: For environment variable handling.
+- pyodbc: For connecting to and interacting with an MSSQL database.
+- dotenv: For loading environment variables from a .env file.
+"""
+
 import os
 import pyodbc
-from dotenv import load_dotenv
-
-load_dotenv()
 
 class MSSQLDatabase:
     """
-    A class for executing SQL queries and performing data operations with a SQL database.
+    A class for executing SQL queries and performing data operations with an MSSQL database.
 
-    :Attributes:
-        server: The name of the SQL server.
-        database: The name of the database.
-        username: The username for the SQL server.
-        password: The password for the SQL server.
-        conn: The connection to the SQL server.
-
-    :Methods:
-        :execute_query(self, query: str) -> Any: Executes the specified SQL query and returns the result.
-        :get_column_names(self, table_name: str) -> list[tuple[str, str]]: Returns the column names of the specified table.
-        :delete_table_data(self, table_name: str) -> None: Deletes the data from the specified table.
-        :insert_csv_data(self, table_name: str, csv_file_path: str) -> None:
-        :bulk_insert_csv_sql(self, file_path: str, staging_table_name: str, client_id: str) -> None:
+    Attributes:
+        server (str): The name of the SQL server.
+        database (str): The name of the database.
+        username (str): The username for the SQL server.
+        password (str): The password for the SQL server.
+        conn (pyodbc.Connection): The connection to the SQL server.
     """
 
     def __init__(self):
         """
-        Initializes the MSSQLDatabase class.
-
-        :return: None
-        :rtype: None
+        Initializes the MSSQLDatabase class by retrieving database credentials from environment variables.
         """
         self.server = os.getenv("SQL_SERVER")
         self.database = os.getenv("SQL_DATABASE")
@@ -38,19 +37,18 @@ class MSSQLDatabase:
 
     def execute_query(self, query: str) -> list[tuple[str, str]]:
         """
-        Executes a SQL query and returns the result.
+        Executes a SQL query and returns the result if applicable.
 
-        :param query: The SQL query to execute.
-        :type query: str
-
-        :return: The result of the query.
-        :rtype: list[tuple[str, str]] | None
+        Args:
+            query (str): The SQL query to execute.
+        
+        Returns:
+            list[tuple[str, str]] | None: The result of the query, or None if an error occurs.
         """
-
         try:
             conn = pyodbc.connect(
                 f"""DRIVER={{ODBC Driver 18 for SQL Server}};SERVER={self.server};DATABASE={self.database};
-                                    UID={self.username};PWD={self.password}""",
+                    UID={self.username};PWD={self.password}""",
                 TrustServerCertificate="yes",
             )
             cursor = conn.cursor()
@@ -68,12 +66,15 @@ class MSSQLDatabase:
         except Exception as e:
             print(f"Exception occurred: {type(e).__name__} - {e}")
             return None
-        
-if __name__ == "__main__":
-    sql = MSSQLDatabase()
 
-    results = sql.execute_query("SELECT * FROM AFC_Password_Tbl WHERE Active = 1")
-    for result in results:
-        client_id, _, username, password, __ = result
-        # print(result)
-        print(f'Client ID: {client_id}, Username: {username}, password = {password}')
+if __name__ == "__main__":
+    import os
+    from dotenv import load_dotenv
+
+    load_dotenv()
+
+    sql = MSSQLDatabase()
+    
+    # Execute a query to retrieve active user data
+    result = sql.execute_query("SELECT 'Test' AS Result")
+    print(result)  # Output: [('Test',)]

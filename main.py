@@ -6,7 +6,7 @@ from flask import Flask, request, jsonify
 
 from utils.pyodbc_sql import MSSQLDatabase
 from utils.smtp_email import EmailSender, EmailTemplate
-from utils.deployment import execute_command, clone_or_update_repo, set_permission_readonly, set_permission_full, create_env_file
+from utils.deployment import clone_or_update_repo, set_permission_readonly, set_permission_full
 
 load_dotenv()
 
