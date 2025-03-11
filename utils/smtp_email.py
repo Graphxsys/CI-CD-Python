@@ -181,7 +181,7 @@ class EmailTemplate:
                     <strong>Created At:</strong> {created_at}
                   </div>
                   <div class="logs">
-                    <p>{logs.replace('\n', '<br>')}<p>
+                    <p>{logs}<p>
                   </div>
                   <br><br>
                   <hr>
