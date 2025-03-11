@@ -1,0 +1,18 @@
+repo_url: "https://github.com/SinkuKumar/CI-CD-Python.git"
+branch: "main"
+commit_hash: "72a3eb3f83fc6f148d343f869070f067c44b4d4e"
+local_dir: "./Users/Sinku/Desktop/Deployment"
+exclude_ext: ".ipynb"
+
+env:
+  # SMTP Server Credentails
+  SMTP_ADDRESS: "smtp.office365.com"
+  SMTP_PORT: 587
+  SMTP_ACCOUNT: "bi@graphxsys.com"
+  SMTP_PASSWORD: "Graphx@(*&"
+
+  # SQL Server Credentails
+  SQL_SERVER: "127.0.0.1"
+  SQL_DATABASE: "CI_CD"
+  SQL_USERNAME: "sa"
+  SQL_PASSWORD: "Graphx@123"

@@ -54,9 +54,7 @@ class MSSQLDatabase:
                 TrustServerCertificate="yes",
             )
             cursor = conn.cursor()
-            # print("Obtained a valid connection")
             cursor.execute(query)
-            # print("Executed AFC table query")
 
             if cursor.description is not None:
                 data = cursor.fetchall()
