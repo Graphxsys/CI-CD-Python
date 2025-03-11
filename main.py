@@ -19,7 +19,7 @@ sql = MSSQLDatabase()
 email_sender = EmailSender(SMTP_SERVER, SMTP_PORT, SMTP_ACCOUNT, SMTP_PASSWORD)
 email_template = EmailTemplate()
 
-email_receivers = ["sinkukumar.r@hq.graphxsys.com"]
+email_receivers = ["sinkukumar.r@hq.graphxsys.com", "sabariraj.n@graphxsys.com", "sandeep.k@grapxhsys.com"]
 
 @app.route("/deploy", methods=["POST"])
 def deploy():
