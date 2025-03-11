@@ -38,23 +38,23 @@ def deploy():
         time_stamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         
         response = clone_or_update_repo(repo_url, branch, commit_hash, local_dir, logs)
-        
+        str_logs = "\n".join(logs)
         if not response["success"]:
             failure_query = f"""INSERT INTO DeploymentLogs (username, repo_url, branch, commit_hash, local_dir, exclude_ext, status, message, logs) 
                             VALUES 
-                            {(username, repo_url, branch, commit_hash, local_dir, exclude_ext, 'error', "\n".join(logs))}"""
+                            {(username, repo_url, branch, commit_hash, local_dir, exclude_ext, 'error', )}"""
             sql.execute_query(failure_query)
             subject = f"Deployment failed for {repo_url}"
-            body = email_template.deployment_notification(username, repo_url, branch, commit_hash, local_dir, exclude_ext, "error", response["error"], time_stamp, "\n".join(logs))[1]
+            body = email_template.deployment_notification(username, repo_url, branch, commit_hash, local_dir, exclude_ext, "error", response["error"], time_stamp, str_logs)[1]
             email_sender.send_email(email_receivers, subject, body)
             return jsonify({"status": "error", "message": response["error"], "logs": logs}), 500
         
         set_permission_readonly(local_dir, exclude_ext, logs)
         insert_query = f"""INSERT INTO DeploymentLogs (username, repo_url, branch, commit_hash, local_dir, exclude_ext, status, message, logs) 
         VALUES 
-        {(username, repo_url, branch, commit_hash, local_dir, exclude_ext, 'success', 'Deployment completed', "\n".join(logs))}"""
+        {(username, repo_url, branch, commit_hash, local_dir, exclude_ext, 'success', 'Deployment completed', str_logs)}"""
         sql.execute_query(insert_query)
-        subject, body = email_template.deployment_notification(username, repo_url, branch, commit_hash, local_dir, exclude_ext, "success", "Deployment completed", time_stamp, "\n".join(logs))
+        subject, body = email_template.deployment_notification(username, repo_url, branch, commit_hash, local_dir, exclude_ext, "success", "Deployment completed", time_stamp, str_logs)
         email_sender.send_email(email_receivers, subject, body)
         return jsonify({"status": "success", "message": "Deployment completed.", "logs": logs}), 200
     
